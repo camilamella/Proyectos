@@ -1,0 +1,50 @@
+<?xml version="1.0"?>
+<odoo>
+  
+    <template id="assets_backend" name="prueba_modulo assets" inherit_id="web.assets_backend">
+    <xpath expr="." position="inside">
+        <script type="text/javascript" src="/prueba_modulo/static/src/js/diferencia.js"></script>
+        <script type="text/javascript" src="/prueba_modulo/static/src/js/escribir.js" defer="True"></script>
+        <script type="text/javascript" src="/prueba_modulo/static/src/js/enviar_dato.js" defer="True"></script>
+    </xpath>
+    </template>
+
+    <record model="ir.ui.view" id="proyect_taks_kanban"> 
+        <field name="name">Proyectos</field>
+        <field name="model">proyectos.proyecto</field>
+        <field name="arch" type="xml">
+            <kanban string="Proyect">
+                <field name="name"/>
+                <field name="progress_rate"/> 
+                <field name="maximum_rate"/>  
+                <templates> 
+                    <t t-name="kanban-box">
+                        <div t-attf-class="oe_kanban_global_click">
+                            <div class="o_kanban_image">
+                                <field name="name"/>
+                            </div>
+                            <div class="oe_kanba_details">
+                                <strong class="o_kanban_record_title">
+                                    <field name="progress_rate" widget="gauge" style="width:150px; height: 110px;" 
+                                        options="{'max_field': 'maximum_rate', 'title': 'Progreso', 'levelcolors': ['#ffffff', '#0000ff', '#00bb2b','ffff00', '#ffa500', '#ff0000']}">
+                                    </field>
+                                </strong>
+                            </div>
+                        </div>
+                    </t>
+                </templates>     
+            </kanban>
+        </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="action_tasks_kanba"> 
+        <field name="name">Proyectos</field>
+        <field name="res_model">proyectos.proyecto</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">kanban,tree,form</field>
+    </record>
+
+    <menuitem name="Tablero Proyectos" id="proyect_task_task_menu" 
+              parent="proyect_root_menu" action="action_tasks_kanba"
+              sequence="2"   /> 
+</odoo>

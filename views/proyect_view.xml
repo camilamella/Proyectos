@@ -1,0 +1,62 @@
+<?xml version="1.0"?>
+<odoo>
+   
+
+    <template id="assets_backend" name="prueba_modulo assets" inherit_id="web.assets_backend">
+    <xpath expr="." position="inside">
+        <script type="text/javascript" src="/prueba_modulo/static/src/js/escribir.js" defer="True"></script>
+        <script type="text/javascript" src="/prueba_modulo/static/src/js/enviar_dato.js" defer="True"></script>        
+    </xpath>
+    </template>
+
+    <menuitem name="Proyectos" id="proyect_root_menu"
+              web_icon="proyect_task,static/description/icon.png" />
+    
+    <record model="ir.actions.act_window" id="action_proyect_task"> 
+        <field name="name">Proyectos</field>
+        <field name="res_model">proyectos.proyecto</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <record model="ir.ui.view" id="proyect_taks_form"> 
+        <field name="name">Vista de proyecto</field>
+        <field name="model">proyectos.proyecto</field>
+        <field name="arch" type="xml">
+            <form string="Proyect Tasks">
+                <header>
+                    <button name="do_toggle_done" type="object" string="Listo" class="oe_highlight" />
+                    <button name="do_clear_done" type="object" string="Borrar Listo" />
+                </header>
+                <sheet>
+                    <group col="4">
+                        <group colspan="4">
+                            <field name="fecha" readonly="1"/>
+                        </group>                       
+                        <group colspan="2">
+                            <field name="promesa"/>
+                        </group>
+                        <group colspan="2">
+                            <field name="mdh_selection" string="Unidades"/>
+                        </group>
+                    </group>
+                    <group name="group_top">
+                    <group name="group_left">
+                        <field name="name"/>
+                    </group>
+                    <group name="group_right">
+                        <field name="is_done"/>
+                        <field name="active" readonly="1" />
+                    </group>
+                     <group colspan="2">
+                            <field name="progress_rate" readonly="1"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <menuitem name="Proyectos" id="proyect_task_menu" 
+              parent="proyect_root_menu" action="action_proyect_task"
+              sequence="1"   /> 
+</odoo>
